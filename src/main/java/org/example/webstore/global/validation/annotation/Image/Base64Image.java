@@ -15,5 +15,5 @@ public  @interface  Base64Image {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
-    int maxSize() default 10485760;
+    int maxSize() default 10 * 1024 * 1024;
 }

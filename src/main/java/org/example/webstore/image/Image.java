@@ -17,11 +17,16 @@ public class Image {
     private Long id;
 
     @NotEmpty
-    @Size(max = 10485760) // 10 Mb TODO : Написать аннотацию, если не будет лень
+    @Size(max = 10 * 1024 * 1024) // 10 Mb TODO : Написать аннотацию, если не будет лень
     byte @NonNull [] asBytes;
 
     public Image(@NonNull String image) {
         String encodedString = Base64.getEncoder().encodeToString(image.getBytes());
-        this.asBytes = Base64.getDecoder().decode(encodedString);
+
+        var byteImage = Base64.getDecoder().decode(encodedString);
+        if (byteImage.length > 10 * 1024 * 1024) {
+            throw new IllegalArgumentException("Image too large");
+        }
+        this.asBytes = byteImage;
     }
 }
