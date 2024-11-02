@@ -14,6 +14,4 @@ public  @interface  Base64Image {
     String message() default "Invalid Base64 image";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
-    int maxSize() default 10 * 1024 * 1024;
 }
