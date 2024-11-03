@@ -16,10 +16,10 @@ public class Image {
     private Long id;
 
     @NotEmpty
-    byte @NonNull [] asBytes;
+    private byte @NonNull [] asBytes;
 
     public Image(@NonNull String image) {
-        String encodedString = Base64.getEncoder().encodeToString(image.getBytes());
-        this.asBytes = Base64.getDecoder().decode(encodedString);
+        var asBytes = image.substring(image.indexOf(",") + 1);
+        this.asBytes = Base64.getDecoder().decode(asBytes);
     }
 }
