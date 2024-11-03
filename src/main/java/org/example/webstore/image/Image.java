@@ -2,8 +2,10 @@ package org.example.webstore.image;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.Base64;
 import lombok.*;
+import org.hibernate.annotations.Immutable;
 
 @Entity(name = "image")
 @Table(name = "image", schema = "public")
@@ -18,8 +20,13 @@ public class Image {
     @NotEmpty
     private byte @NonNull [] asBytes;
 
+    @NotNull
+    @Immutable
+    @Enumerated(EnumType.ORDINAL)
+    private ImageType imageType;
+
     public Image(@NonNull String image) {
-        var asBytes = image.substring(image.indexOf(",") + 1);
-        this.asBytes = Base64.getDecoder().decode(asBytes);
+        this.imageType = ImageType.fromMimeType(ImageUtil.extractBase64ImageType(image));
+        this.asBytes = Base64.getDecoder().decode(ImageUtil.extractBase64ImagBytes(image));
     }
 }

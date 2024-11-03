@@ -20,4 +20,13 @@ public enum ImageType {
         }
         return false;
     }
+
+    public static ImageType fromMimeType(@NotBlank String imageType) {
+        for (var type : ImageType.values()) {
+            if (type.mimeType.equals(imageType)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("unsupported image type: " + imageType);
+    }
 }
