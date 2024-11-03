@@ -31,7 +31,7 @@ public class Base64ImageValidator implements ConstraintValidator<Base64Image, St
         if (!ImageType.isValidImageType(type)) {
             throw new IllegalArgumentException("Invalid image type: " + type);
         }
-        var bytes = Base64.getDecoder().decode(value);
+        var bytes = Base64.getDecoder().decode(extractBytes(value));
         if(bytes.length > maxSize) {
             throw new IllegalArgumentException("Image size exceeds 10 Mb");
         }
@@ -43,6 +43,12 @@ public class Base64ImageValidator implements ConstraintValidator<Base64Image, St
     }
 
     private String extractType(String value) {
+        int colonIndex = value.indexOf(":");
+        int semicolonIndex = value.indexOf(";");
+        return value.substring(colonIndex + 1, semicolonIndex);
+    }
+
+    private String extractBytes(String value) {
         return value.substring(value.indexOf(",") + 1);
     }
 }
