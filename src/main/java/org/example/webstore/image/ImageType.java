@@ -1,8 +1,10 @@
 package org.example.webstore.image;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public enum ImageType {
     JPEG("image/jpeg"),
