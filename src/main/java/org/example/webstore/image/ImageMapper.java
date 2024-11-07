@@ -11,7 +11,7 @@ public abstract class ImageMapper {
         return new Image(image);
     }
 
-    public String toGetImageDTO(Image image) {
+    public String toGetDTO(Image image) {
         return ImageUtil.getUrlToImage(image);
     }
 }
