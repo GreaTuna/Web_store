@@ -10,4 +10,8 @@ public abstract class ImageMapper {
     public Image toEntity(String image) {
         return new Image(image);
     }
+
+    public String toGetImageDTO(Image image) {
+        return ImageUtil.getUrlToImage(image);
+    }
 }
