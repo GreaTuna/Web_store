@@ -1,12 +1,12 @@
 package org.example.webstore.global.enums;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.SneakyThrows;
 
-@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Category {
+public enum Category implements EnumValueProvider{
     CARS("cars"),
     FREEBIES("freebies"),
     ELECTRONICS("electronics"),
@@ -16,4 +16,16 @@ public enum Category {
     ;
 
     private final String category;
+
+    @Override
+    public String getEnumValue() {
+        return category;
+    }
+
+    @SneakyThrows
+    public static Category fromCategory(@NotBlank String category) {
+        var value = EnumValueProvider.fromValue(category, Category.values());
+        if (value != null) {return value;}
+        throw new IllegalArgumentException("Invalid category: " + category);
+    }
 }
