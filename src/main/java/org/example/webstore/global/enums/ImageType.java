@@ -3,11 +3,10 @@ package org.example.webstore.global.enums;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.SneakyThrows;
 
-@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum ImageType {
+public enum ImageType implements EnumValueProvider {
     JPEG("image/jpeg"),
     PNG("image/png"),
     SVG("image/svg+xml"),
@@ -15,21 +14,21 @@ public enum ImageType {
 
     private final String mimeType;
 
-    public static boolean isValidImageType (@NotBlank String imageType) {
-        for (var type : ImageType.values()) {
-            if (type.mimeType.equals(imageType)) {
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public String getEnumValue() {
+        return mimeType;
     }
 
+    @SneakyThrows
+    public static boolean isValidImageType (@NotBlank String imageType) {
+        var value = EnumValueProvider.fromValue(imageType, ImageType.values());
+        return value != null;
+    }
+
+    @SneakyThrows
     public static ImageType fromMimeType(@NotBlank String imageType) {
-        for (var type : ImageType.values()) {
-            if (type.mimeType.equals(imageType)) {
-                return type;
-            }
-        }
-        throw new IllegalArgumentException("unsupported image type: " + imageType);
+        var value = EnumValueProvider.fromValue(imageType, ImageType.values());
+        if (value != null) {return value;}
+        throw new IllegalArgumentException("Invalid image type: " + imageType);
     }
 }

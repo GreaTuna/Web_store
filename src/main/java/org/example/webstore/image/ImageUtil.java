@@ -16,7 +16,7 @@ public class ImageUtil {
         throw new IllegalArgumentException("invalid string format");
     }
 
-    public static String extractBase64ImagBytes(@NonNull String image) {
+    public static String extractBase64ImageBytes(@NonNull String image) {
         if (isBase64Image(image)) {
             int index = image.indexOf(",");
             return image.substring(index + 1);

@@ -28,6 +28,10 @@ public class Image {
 
     public Image(@NonNull String image) {
         this.imageType = ImageType.fromMimeType(ImageUtil.extractBase64ImageType(image));
-        this.asBytes = Base64.getDecoder().decode(ImageUtil.extractBase64ImagBytes(image));
+        this.asBytes = Base64.getDecoder().decode(ImageUtil.extractBase64ImageBytes(image));
+    }
+
+    public String getImageTypeValue() {
+        return imageType.getEnumValue();
     }
 }

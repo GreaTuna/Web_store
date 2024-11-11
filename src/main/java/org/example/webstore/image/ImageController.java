@@ -25,7 +25,7 @@ public class ImageController {
     public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
         var image = imageService.findById(id);
         return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType(image.getImageType().getMimeType()))
+            .contentType(MediaType.parseMediaType(image.getImageTypeValue()))
             .body(image.getAsBytes());
     }
 

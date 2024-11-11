@@ -29,7 +29,7 @@ public class Base64ImageValidator implements ConstraintValidator<Base64Image, St
         if (!ImageType.isValidImageType(type)) {
             throw new IllegalImageTypeException("forbidden image type: " + type.substring(type.indexOf('/') + 1));
         }
-        var bytes = Base64.getDecoder().decode(ImageUtil.extractBase64ImagBytes(value));
+        var bytes = Base64.getDecoder().decode(ImageUtil.extractBase64ImageBytes(value));
         if(bytes.length > imageConfig.getMaxSizeInBytes()) {
             double sizeInMB = bytes.length / 1024.0 / 1024.0;
             var message = "Image size exceeds: actual " + String.format("%.1f", sizeInMB) + " Mb, permitted " + imageConfig.getMaxSize() + " Mb";
