@@ -1,12 +1,13 @@
 package org.example.webstore.global.enums;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Subcategories {
+public enum Subcategory implements EnumValueProvider{
     // electronics
     AUDIO_DEVICES("audio_devices"),
     COMPUTERS_AND_LAPTOPS("computers_and_laptops"),
@@ -34,5 +35,16 @@ public enum Subcategories {
     ;
 
     private final String subcategory;
+
+    @Override
+    public String getEnumValue() {
+        return subcategory;
+    }
+
+    public static Subcategory fromSubcategory(@NotBlank String subcategory) {
+        var value = EnumValueProvider.fromValue(subcategory, Subcategory.values());
+        if (value != null) {return value;}
+        throw new IllegalArgumentException("Invalid subcategory: " + subcategory);
+    }
 }
 
