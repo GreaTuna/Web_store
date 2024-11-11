@@ -1,10 +1,11 @@
 package org.example.webstore.item.enums;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Category {
     CARS("cars"),
     FREEBIES("freebies"),
