@@ -7,7 +7,7 @@ import lombok.SneakyThrows;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.example.webstore.global.exception.IllegalImageTypeException;
 import org.example.webstore.image.ImageConfig;
-import org.example.webstore.image.ImageType;
+import org.example.webstore.global.enums.ImageType;
 import org.example.webstore.image.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 

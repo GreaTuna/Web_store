@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.Base64;
 import lombok.*;
+import org.example.webstore.global.enums.ImageType;
 import org.hibernate.annotations.Immutable;
 
 @Entity(name = "image")

@@ -1,4 +1,4 @@
-package org.example.webstore.item.enums;
+package org.example.webstore.global.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
