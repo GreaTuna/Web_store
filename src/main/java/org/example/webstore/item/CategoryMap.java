@@ -20,4 +20,8 @@ public class CategoryMap {
         CATEGORY_MAP.put(Category.SPORTS_AND_OUTDOOR_ACTIVITIES, Arrays.asList(Subcategory.BICYCLES, Subcategory.SPORTS_EQUIPMENT, Subcategory.CAMPING_AND_HIKING));
         CATEGORY_MAP.put(Category.ELECTRONICS, Arrays.asList(Subcategory.AUDIO_DEVICES, Subcategory.COMPUTERS_AND_LAPTOPS, Subcategory.PHONES_AND_ACCESSORIES, Subcategory.MONITORS_AND_TELEVISIONS));
     }
+
+    public static boolean isCompatible(final Category category, final Subcategory subcategory) {
+        return CATEGORY_MAP.get(category).contains(subcategory);
+    }
 }
