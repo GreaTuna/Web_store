@@ -46,5 +46,9 @@ public enum Subcategory implements EnumValueProvider{
         if (value != null) {return value;}
         throw new IllegalArgumentException("Invalid subcategory: " + subcategory);
     }
+
+    public static boolean isValidSubcategory(@NotBlank String subcategory) {
+        return EnumValueProvider.fromValue(subcategory, Subcategory.values()) != null;
+    }
 }
 
