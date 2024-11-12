@@ -21,8 +21,7 @@ public enum ImageType implements EnumValueProvider {
 
     @SneakyThrows
     public static boolean isValidImageType (@NotBlank String imageType) {
-        var value = EnumValueProvider.fromValue(imageType, ImageType.values());
-        return value != null;
+        return EnumValueProvider.fromValue(imageType, ImageType.values()) != null;
     }
 
     @SneakyThrows

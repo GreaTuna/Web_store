@@ -28,4 +28,9 @@ public enum Category implements EnumValueProvider{
         if (value != null) {return value;}
         throw new IllegalArgumentException("Invalid category: " + category);
     }
+
+    @SneakyThrows
+    public static boolean isValidCategory(@NotBlank String category) {
+        return  EnumValueProvider.fromValue(category, Category.values()) != null;
+    }
 }
