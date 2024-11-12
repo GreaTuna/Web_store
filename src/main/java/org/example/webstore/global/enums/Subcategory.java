@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -41,12 +42,14 @@ public enum Subcategory implements EnumValueProvider{
         return subcategory;
     }
 
+    @SneakyThrows
     public static Subcategory fromSubcategory(@NotBlank String subcategory) {
         var value = EnumValueProvider.fromValue(subcategory, Subcategory.values());
         if (value != null) {return value;}
         throw new IllegalArgumentException("Invalid subcategory: " + subcategory);
     }
 
+    @SneakyThrows
     public static boolean isValidSubcategory(@NotBlank String subcategory) {
         return EnumValueProvider.fromValue(subcategory, Subcategory.values()) != null;
     }
