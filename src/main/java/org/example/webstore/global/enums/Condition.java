@@ -19,6 +19,11 @@ public enum Condition implements EnumValueProvider {
     }
 
     @SneakyThrows
+    public static boolean isValidCondition(@NotBlank String condition) {
+        return EnumValueProvider.fromValue(condition, Condition.values()) != null;
+    }
+
+    @SneakyThrows
     public static Condition fromCondition(@NotBlank String condition) {
         var value = EnumValueProvider.fromValue(condition, Condition.values());
         if (value != null) {return value;}
