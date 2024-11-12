@@ -9,8 +9,8 @@ public record PostPreviewDTO(
     @Size(max = 255)
     @NotBlank(groups = Post.class)
     String title,
+    @Base64Image
     @NotBlank(groups = Post.class)
-    @Base64Image(groups = Post.class)
     String image
 ) {
 }
