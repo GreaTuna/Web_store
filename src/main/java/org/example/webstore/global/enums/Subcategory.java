@@ -1,6 +1,5 @@
 package org.example.webstore.global.enums;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,14 +42,16 @@ public enum Subcategory implements EnumValueProvider{
     }
 
     @SneakyThrows
-    public static Subcategory fromSubcategory(@NotBlank String subcategory) {
+    public static Subcategory fromSubcategory(String subcategory) {
+        if (subcategory == null) {return null;}
         var value = EnumValueProvider.fromValue(subcategory, Subcategory.values());
         if (value != null) {return value;}
         throw new IllegalArgumentException("Invalid subcategory: " + subcategory);
     }
 
     @SneakyThrows
-    public static boolean isValidSubcategory(@NotBlank String subcategory) {
+    public static boolean isValidSubcategory(String subcategory) {
+        if (subcategory == null) {return true;}
         return EnumValueProvider.fromValue(subcategory, Subcategory.values()) != null;
     }
 }

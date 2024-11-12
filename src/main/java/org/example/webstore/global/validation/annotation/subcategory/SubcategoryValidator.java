@@ -7,9 +7,6 @@ import org.example.webstore.global.enums.Subcategory;
 public class SubcategoryValidator implements ConstraintValidator<ValidSubcategory, String> {
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null) {
-            return true;
-        }
         return Subcategory.isValidSubcategory(value);
     }
 }
