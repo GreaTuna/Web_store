@@ -2,19 +2,20 @@ package org.example.webstore.item.details;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.example.webstore.image.Image;
 import org.example.webstore.item.preview.Preview;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Immutable;
 
+@Valid
 @Entity(name = "item")
 @Table(name = "item", schema = "public")
 @AllArgsConstructor
@@ -24,27 +25,29 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(max = 256)
-    @NotBlank
+    @NotNull
+    @NonNull
     private String name;
 
-    @NotBlank
+    @NotNull
+    @NonNull
     @Size(max = 5000)
-    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Size(min = 1)
+    @Min(1)
+    @Max(9999999)
     private Integer price;
 
     @Valid
+    @NonNull
     private Preview preview;
 
     @Immutable
     @CreationTimestamp
-    Instant createdAt;
+    public Instant createdAt;
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinTable(schema = "public", name = "item_gallery")
-    List<Image> gallery = new ArrayList<>();
+    private List<Image> gallery = new ArrayList<>();
 }
 
