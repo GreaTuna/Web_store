@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.NonNull;
 import org.example.webstore.global.enums.Category;
 import org.example.webstore.global.enums.Subcategory;
 
@@ -21,7 +22,7 @@ public class CategoryMap {
         CATEGORY_MAP.put(Category.ELECTRONICS, Arrays.asList(Subcategory.AUDIO_DEVICES, Subcategory.COMPUTERS_AND_LAPTOPS, Subcategory.PHONES_AND_ACCESSORIES, Subcategory.MONITORS_AND_TELEVISIONS));
     }
 
-    public static boolean isCompatible(final Category category, final Subcategory subcategory) {
+    public static boolean isCompatible(@NonNull final Category category, final Subcategory subcategory) {
         return CATEGORY_MAP.get(category).contains(subcategory);
     }
 }
