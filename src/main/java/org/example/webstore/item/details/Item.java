@@ -39,7 +39,8 @@ public class Item {
 
     @Min(0)
     @Max(9999999)
-    private Integer price;
+    @Setter(AccessLevel.NONE)
+    private int price;
 
     @Valid
     @NonNull
@@ -77,6 +78,19 @@ public class Item {
         if (!CategoryMap.isCompatible(this.category, subcategory)) {
             throw new IllegalArgumentException("Category " + this.category.getEnumValue() + " is not compatible with subcategory " + subcategory.getEnumValue());
         }
+    }
+
+    public void setPrice(int price) {
+        if (price < 0 || price > 9999999) {
+            throw new IllegalArgumentException("Price must be between 0 and 9999999");
+        }
+        if (price > 0 && this.category == Category.FREEBIES) {
+            throw new IllegalArgumentException("Price for category " + this.category.getEnumValue() + " should be 0");
+        }
+        if (price == 0 && this.category != Category.FREEBIES) {
+            throw new IllegalArgumentException("Price for category " + this.category.getEnumValue() + " should be at least 1");
+        }
+        this.price = price;
     }
 }
 
