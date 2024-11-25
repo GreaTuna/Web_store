@@ -1,4 +1,4 @@
-package org.example.webstore.global.validation.annotation.Image;
+package org.example.webstore.global.validation.annotation.image;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -2,7 +2,7 @@ package org.example.webstore.image;
 
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.example.webstore.global.validation.annotation.Image.Base64Image;
+import org.example.webstore.global.validation.annotation.image.Base64Image;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
