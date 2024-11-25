@@ -69,18 +69,27 @@ public class Item {
 
 
     public void setCategory(@NonNull Category category) {
-        if (!CategoryMap.isCompatible(category, this.subcategory)) {
-            throw new IllegalArgumentException("Category " + category.getEnumValue() + " is not compatible with subcategory " + this.subcategory.getEnumValue());
-        }
+        this.validateSubcategoryForCategory(category, this.subcategory);
+        this.category = category;
     }
 
     public void setSubcategory(@NonNull Subcategory subcategory) {
-        if (!CategoryMap.isCompatible(this.category, subcategory)) {
-            throw new IllegalArgumentException("Category " + this.category.getEnumValue() + " is not compatible with subcategory " + subcategory.getEnumValue());
-        }
+        this.validateSubcategoryForCategory(this.category, subcategory);
+        this.subcategory = subcategory;
     }
 
     public void setPrice(int price) {
+        this.validatePrice(price);
+        this.price = price;
+    }
+
+    private void validateSubcategoryForCategory(@NonNull Category category, @NonNull Subcategory subcategory) {
+        if (!CategoryMap.isCompatible(category, subcategory)) {
+            throw new IllegalArgumentException("Category " + category.getEnumValue() + " is not compatible with subcategory " + subcategory.getEnumValue());
+        }
+    }
+
+    private void validatePrice(int price) {
         if (price < 0 || price > 9999999) {
             throw new IllegalArgumentException("Price must be between 0 and 9999999");
         }
@@ -90,7 +99,6 @@ public class Item {
         if (price == 0 && this.category != Category.FREEBIES) {
             throw new IllegalArgumentException("Price for category " + this.category.getEnumValue() + " should be at least 1");
         }
-        this.price = price;
     }
 }
 
