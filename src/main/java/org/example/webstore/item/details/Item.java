@@ -29,6 +29,7 @@ public class Item {
 
     @NotNull
     @NonNull
+    @Size(max = 256)
     private String name;
 
     @NotNull
@@ -36,7 +37,7 @@ public class Item {
     @Size(max = 5000)
     private String description;
 
-    @Min(1)
+    @Min(0)
     @Max(9999999)
     private Integer price;
 
