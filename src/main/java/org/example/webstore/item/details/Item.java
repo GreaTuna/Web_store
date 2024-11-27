@@ -20,7 +20,6 @@ import org.hibernate.annotations.Immutable;
 @Table(name = "item", schema = "public")
 @Getter
 @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
     @Id
@@ -67,6 +66,22 @@ public class Item {
     @JoinTable(schema = "public", name = "item_gallery")
     private List<Image> gallery = new ArrayList<>();
 
+    public Item(
+        @NonNull String name, @NonNull String description, int price, @NonNull Preview preview,
+        Condition condition, @NonNull Category category, Subcategory subcategory, @NonNull List<Image> gallery) {
+
+        this.validatePriceForCategory(price, category);
+        this.validateSubcategoryForCategory(category, subcategory);
+
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.preview = preview;
+        this.condition = condition;
+        this.category = category;
+        this.subcategory = subcategory;
+        if (!gallery.isEmpty()) this.gallery = gallery;
+    }
 
     public void setCategory(@NonNull Category category) {
         this.validateSubcategoryForCategory(category, this.subcategory);
@@ -79,25 +94,21 @@ public class Item {
     }
 
     public void setPrice(int price) {
-        this.validatePrice(price);
+        this.validatePriceForCategory(price, this.category);
         this.price = price;
+    }
+
+    private void validatePriceForCategory(int price, @NonNull Category category) {
+        if (price > 0 && category == Category.FREEBIES) {
+            throw new IllegalArgumentException("Price for category " + category.getEnumValue() + " should be 0");
+        } else if (price == 0 && category != Category.FREEBIES) {
+            throw new IllegalArgumentException("Price for category " + category.getEnumValue() + " should be at least 1");
+        }
     }
 
     private void validateSubcategoryForCategory(@NonNull Category category, @NonNull Subcategory subcategory) {
         if (!CategoryMap.isCompatible(category, subcategory)) {
             throw new IllegalArgumentException("Category " + category.getEnumValue() + " is not compatible with subcategory " + subcategory.getEnumValue());
-        }
-    }
-
-    private void validatePrice(int price) {
-        if (price < 0 || price > 9999999) {
-            throw new IllegalArgumentException("Price must be between 0 and 9999999");
-        }
-        if (price > 0 && this.category == Category.FREEBIES) {
-            throw new IllegalArgumentException("Price for category " + this.category.getEnumValue() + " should be 0");
-        }
-        if (price == 0 && this.category != Category.FREEBIES) {
-            throw new IllegalArgumentException("Price for category " + this.category.getEnumValue() + " should be at least 1");
         }
     }
 }
