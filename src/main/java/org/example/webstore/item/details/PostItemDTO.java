@@ -1,9 +1,7 @@
 package org.example.webstore.item.details;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import java.util.List;
 import org.example.webstore.global.validation.annotation.category.ValidCategory;
 import org.example.webstore.global.validation.annotation.condition.ValidCondition;
@@ -14,13 +12,11 @@ import org.example.webstore.item.preview.PostPreviewDTO;
 
 public record PostItemDTO(
     @NotBlank(groups = Post.class)
-    @Size(max = 256)
-    String name,
-    @NotBlank(groups = Post.class)
     @Size(max = 5000)
     String description,
-    @Size(max = 9999999)
     @NotNull(groups = Post.class)
+    @Min(0)
+    @Max(9999999)
     Integer price,
     @Valid
     @NotNull(groups = Post.class)
