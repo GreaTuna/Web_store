@@ -28,11 +28,6 @@ public class Item {
 
     @NotNull
     @NonNull
-    @Size(max = 256)
-    private String name;
-
-    @NotNull
-    @NonNull
     @Size(max = 5000)
     private String description;
 
@@ -67,13 +62,12 @@ public class Item {
     private List<Image> gallery = new ArrayList<>();
 
     public Item(
-        @NonNull String name, @NonNull String description, int price, @NonNull Preview preview,
-        Condition condition, @NonNull Category category, Subcategory subcategory, @NonNull List<Image> gallery) {
+        @NonNull String description, int price, @NonNull Preview preview, Condition condition,
+        @NonNull Category category, Subcategory subcategory, @NonNull List<Image> gallery) {
 
         this.validatePriceForCategory(price, category);
         this.validateSubcategoryForCategory(category, subcategory);
 
-        this.name = name;
         this.description = description;
         this.price = price;
         this.preview = preview;
