@@ -1,5 +1,6 @@
 package org.example.webstore.item.details;
 
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.example.webstore.global.validation.groups.Post;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody @Validated(Post.class)  PostItemDTO itemDTO) {
+    public ResponseEntity<?> add(@RequestBody @Validated({Default.class, Post.class}) PostItemDTO itemDTO) {
         itemService.save(itemMapper.toEntity(itemDTO));
         return ResponseEntity.ok().build();
     }
