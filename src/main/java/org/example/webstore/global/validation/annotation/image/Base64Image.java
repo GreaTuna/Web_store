@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER,  ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = Base64ImageValidator.class)
-public  @interface  Base64Image {
+public @interface Base64Image {
     String message() default "Invalid Base64 image";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

@@ -20,6 +20,7 @@ public record PostItemDTO(
     @Size(max = 5000)
     String description,
     @Size(max = 9999999)
+    @NotNull(groups = Post.class)
     Integer price,
     @Valid
     @NotNull(groups = Post.class)
@@ -32,7 +33,7 @@ public record PostItemDTO(
     String category,
     @ValidSubcategory
     @NotNull(groups = Post.class)
-    String Subcategory,
+    String subcategory,
     @Size(max = 10)
     List<@Base64Image String> gallery
 ) {
