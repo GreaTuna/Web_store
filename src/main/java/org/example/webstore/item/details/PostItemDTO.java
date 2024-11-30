@@ -32,7 +32,6 @@ public record PostItemDTO(
     @NotNull(groups = Post.class)
     String category,
     @ValidSubcategory
-    @NotNull(groups = Post.class)
     String subcategory,
     @Size(max = 10)
     List<@Base64Image String> gallery
