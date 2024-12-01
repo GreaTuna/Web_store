@@ -18,7 +18,6 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
     private byte @NonNull [] asBytes;
 
     @NotNull
