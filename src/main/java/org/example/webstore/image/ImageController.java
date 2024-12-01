@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
