@@ -1,7 +1,6 @@
 package org.example.webstore.image;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.Base64;
 import lombok.*;
