@@ -63,7 +63,7 @@ public class Item {
 
     public Item(
         @NonNull String description, int price, @NonNull Preview preview, Condition condition,
-        @NonNull Category category, Subcategory subcategory, @NonNull List<Image> gallery) {
+        @NonNull Category category, Subcategory subcategory, List<Image> gallery) {
 
         this.validatePriceForCategory(price, category);
         this.validateSubcategoryForCategory(category, subcategory);
@@ -74,7 +74,7 @@ public class Item {
         this.condition = condition;
         this.category = category;
         this.subcategory = subcategory;
-        if (!gallery.isEmpty()) this.gallery = gallery;
+        if (gallery != null && !gallery.isEmpty()) this.gallery = gallery;
     }
 
     public void setCategory(@NonNull Category category) {

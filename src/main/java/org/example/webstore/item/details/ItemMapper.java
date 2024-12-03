@@ -4,9 +4,7 @@ import org.example.webstore.image.ImageMapper;
 import org.example.webstore.item.preview.GetPreviewDTO;
 import org.example.webstore.item.preview.PostPreviewDTO;
 import org.example.webstore.item.preview.Preview;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring",
@@ -25,10 +23,21 @@ public abstract class ItemMapper {
     @Mapping(target = "image", expression = "java(imageMapper.toGetDTO(item.getPreview().getImage()))")
     public abstract GetPreviewDTO toGetPreviewDTO(Item item);
 
+    @Mapping(target = "gallery", ignore = true)
     @Mapping(target = "condition", expression = "java(Condition.fromCondition(dto.condition()))")
     @Mapping(target = "category", expression = "java(Category.fromCategory(dto.category()))")
     @Mapping(target = "subcategory", expression = "java(Subcategory.fromSubcategory(dto.subcategory()))")
     @Mapping(target = "preview", expression = "java(toPreviewEntity(dto.preview()))")
-    @Mapping(target = "gallery", expression = "java(dto.gallery().stream().map(imageMapper::toEntity).toList())")
     public abstract Item toEntity(PostItemDTO dto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "gallery", ignore = true)
+    public abstract Item toEntity(PostItemDTO dto, @MappingTarget Item item);
+
+    @AfterMapping
+    protected void mapGallery(PostItemDTO dto, @MappingTarget Item item) {
+        if (dto.gallery() != null) {
+            item.setGallery(dto.gallery().stream().map(imageMapper::toEntity).toList());
+        }
+    }
 }
