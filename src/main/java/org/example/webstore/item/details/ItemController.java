@@ -17,16 +17,23 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemRepository itemRepository;
 
-    @PostMapping
-    public ResponseEntity<?> add(@RequestBody @Validated({Default.class, Post.class}) PostItemDTO itemDTO) {
-        itemService.save(itemMapper.toEntity(itemDTO));
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("/previews")
     public ResponseEntity<List<GetPreviewDTO>> getPreviews() {
         return ResponseEntity.ok(
             itemRepository.findAll().stream().map(itemMapper::toGetPreviewDTO).toList()
         );
+    }
+
+    @PostMapping
+    public ResponseEntity<?> add(@RequestBody @Validated({Default.class, Post.class}) PostItemDTO itemDTO) {
+        var item = itemService.save(itemMapper.toEntity(itemDTO));
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> patch(@PathVariable Long id, @RequestBody @Validated PostItemDTO itemDTO) {
+        var item = itemService.findById(id);
+        item = itemService.save(itemMapper.toEntity(itemDTO, item));
+        return ResponseEntity.ok().build();
     }
 }
