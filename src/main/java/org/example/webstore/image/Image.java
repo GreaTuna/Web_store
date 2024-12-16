@@ -1,10 +1,11 @@
 package org.example.webstore.image;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import java.util.Base64;
 import lombok.*;
+import org.example.webstore.global.enums.ImageType;
+import org.hibernate.annotations.Immutable;
 
 @Entity(name = "image")
 @Table(name = "image", schema = "public")
@@ -16,12 +17,19 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
-    @Size(max = 10485760) // 10 Mb TODO : Написать аннотацию, если не будет лень
-    byte @NonNull [] asBytes;
+    private byte @NonNull [] asBytes;
+
+    @NotNull
+    @Immutable
+    @Enumerated(EnumType.ORDINAL)
+    private ImageType imageType;
 
     public Image(@NonNull String image) {
-        String encodedString = Base64.getEncoder().encodeToString(image.getBytes());
-        this.asBytes = Base64.getDecoder().decode(encodedString);
+        this.imageType = ImageType.fromMimeType(ImageUtil.extractBase64ImageType(image));
+        this.asBytes = Base64.getDecoder().decode(ImageUtil.extractBase64ImageBytes(image));
+    }
+
+    public String getImageTypeValue() {
+        return imageType.getEnumValue();
     }
 }

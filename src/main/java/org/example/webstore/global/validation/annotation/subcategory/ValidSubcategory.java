@@ -1,4 +1,4 @@
-package org.example.webstore.global.validation.annotation.Image;
+package org.example.webstore.global.validation.annotation.subcategory;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -7,13 +7,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = Base64ImageValidator.class)
-public  @interface  Base64Image {
-    String message() default "Invalid Base64 image";
+@Constraint(validatedBy = SubcategoryValidator.class)
+public @interface ValidSubcategory {
+    String message() default "Invalid subcategory";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
-    int maxSize() default 10485760;
 }
